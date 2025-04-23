@@ -60,7 +60,8 @@ class Vacancy:
         return self.salary_average() >= other.salary_average()
 
     def salary_average(self) -> float:
-        """Метод для расчета средней зарплаты вакансии."""
+        """Метод для расчета средней зарплаты вакансии. Необходим для сравнения зарплаты в диапазоне от начальной
+        суммы до конечной суммы."""
         if self.salary_from and self.salary_to:
             return round((self.salary_from + self.salary_to) / 2, 2)
         elif self.salary_from:
@@ -94,7 +95,7 @@ class Vacancy:
 
     @classmethod
     def cast_to_object_list(cls, vacancy_json_data: list[dict]) -> list:
-        """Классовый метод создания списка экземпляров класса из списка словарей."""
+        """Классовый метод для создания списка экземпляров класса из списка словарей."""
         vacancies_list = []
         for vacancy in vacancy_json_data:
             vacancies_list.append(cls.process_vacancy(vacancy))
@@ -109,11 +110,14 @@ class Vacancy:
 
     @staticmethod
     def __verify_int_data(check_int_data: int) -> int:
-        """Приватный статический метод проверяет валидность целочисленных данных."""
+        """Приватный статический метод проверяет валидность целочисленных данных. Метод проверяет, что атрибут является
+        экземпляром класса int, не отрицательный."""
         if check_int_data is None:
             return 0
         if not isinstance(check_int_data, int):
             raise TypeError(f"Атрибут {check_int_data} не является числом")
+        if check_int_data < 0:
+            raise ValueError(f"Атрибут {check_int_data} не может быть ниже 0")
         return check_int_data
 
     @staticmethod
