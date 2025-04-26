@@ -4,14 +4,14 @@ from src.vacancy import Vacancy
 
 
 def user_interaction():
-    # search_query = "NDCG"
-    # # search_query = input("Введите поисковый запрос: ")
+    """Функция для взаимодействия с пользователем. В функции проверяются следующие возможности: получение вакансий
+    по ключевому запросу на сайте HeadHunter.ru, вывод топ N ваканский по зарплате(N задает пользователь),
+    добавление и удаление вакансий, сохранение созданных вакансий в файл и вывод их из файла в консоль."""
+    # search_query = "NDCG" # input("Введите поисковый запрос: ")
     # # top_n = int(input("Введите количество вакансий для вывода в топ N: "))
     # hh_api = HeadHunterApi()
     # hh_vacancies = hh_api.get_vacancies(search_query)
     # vacancies_list = Vacancy.cast_to_object_list(hh_vacancies)
-
-    # print(len(vacancies_list))
 
     # for vacancy in vacancies_list:
     #     print(vacancy)
@@ -22,16 +22,10 @@ def user_interaction():
 
     json_saver = JsonSaver()
     json_saver.add_data_to_file(new_vacancy)
-    json_saver.delete_data_from_file(new_vacancy)
+    print(json_saver.get_data_from_file())
+    # json_saver.delete_data_from_file(new_vacancy)
 
-    # filter_words = input("Введите ключевые слова для фильтрации вакансий: ").split()
-    # salary_range = input("Введите диапазон зарплат: ") # Пример: 100000 - 150000
-
-    # filtered_vacancies = filter_vacancies(vacancies_list, filter_words)
-    #
-    # ranged_vacancies = get_vacancies_by_salary(filtered_vacancies, salary_range)
-    #
-    # sorted_vacancies = sort_vacancies(ranged_vacancies)
+    # sorted_vacancies = sort_vacancies(vacancies_list)
     # top_vacancies = get_top_vacancies(sorted_vacancies, top_n)
     # print_vacancies(top_vacancies)
 

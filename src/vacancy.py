@@ -112,7 +112,7 @@ class Vacancy:
         experience_name = vacancy_data.experience
         vacancy_result = {
             "name": name,
-            "url": url,
+            "alternate_url": url,
             "salary_from": salary_from,
             "salary_to": salary_to,
             "experience_name": experience_name,
