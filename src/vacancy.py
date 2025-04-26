@@ -101,6 +101,25 @@ class Vacancy:
             vacancies_list.append(cls.process_vacancy(vacancy))
         return vacancies_list
 
+    @classmethod
+    def transform_to_dict(cls, vacancy_data: Any) -> dict:
+        """Классовый метод для преобразования экземпляра класса Vacancy в словарь. Используется при добавлении
+        экземпляра класса в файл."""
+        name = vacancy_data.name
+        url = vacancy_data.url
+        salary_from = vacancy_data.salary_from
+        salary_to = vacancy_data.salary_to
+        experience_name = vacancy_data.experience
+        vacancy_result = {
+            "name": name,
+            "url": url,
+            "salary_from": salary_from,
+            "salary_to": salary_to,
+            "experience_name": experience_name,
+        }
+
+        return vacancy_result
+
     @staticmethod
     def __verify_str_data(check_str_data: str) -> str:
         """Приватный статический метод проверяет валидность строковых данных."""
