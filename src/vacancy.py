@@ -25,7 +25,7 @@ class Vacancy:
         if self.salary_from == 0 and self.salary_to == 0:
             salary_info = "не указана"
         elif self.salary_from == 0:
-            salary_info = f"до {self.salary_from}"
+            salary_info = f"до {self.salary_to}"
         elif self.salary_to == 0:
             salary_info = f"от {self.salary_from}"
         else:
