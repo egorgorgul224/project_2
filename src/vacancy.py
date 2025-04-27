@@ -113,9 +113,8 @@ class Vacancy:
         vacancy_result = {
             "name": name,
             "alternate_url": url,
-            "salary_from": salary_from,
-            "salary_to": salary_to,
-            "experience_name": experience_name,
+            "salary": {"from": salary_from, "to": salary_to},
+            "experience": {"name": experience_name},
         }
 
         return vacancy_result

@@ -22,7 +22,9 @@ def user_interaction():
 
     json_saver = JsonSaver()
     json_saver.add_data_to_file(new_vacancy)
-    print(json_saver.get_data_from_file())
+    vacancy_from_file = json_saver.get_data_from_file()
+    for vacancy in vacancy_from_file:
+        print(vacancy)
     # json_saver.delete_data_from_file(new_vacancy)
 
     # sorted_vacancies = sort_vacancies(vacancies_list)
