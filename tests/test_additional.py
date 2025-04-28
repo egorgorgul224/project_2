@@ -1,4 +1,7 @@
+from typing import Any
+
 import pytest
+
 from src.additional import get_top_vacancies, print_vacancies
 from src.vacancy import Vacancy
 
@@ -36,7 +39,7 @@ def test_get_top_vacancies_error(vacancies_list: list[Vacancy], top_n: int = 0) 
         get_top_vacancies(vacancies_list, top_n)
 
 
-def test_print_vacancies(capsys, vacancies_list_from_file: list[Vacancy]) -> None:
+def test_print_vacancies(capsys: Any, vacancies_list_from_file: list[Vacancy]) -> None:
     """Тест проверяет корректную работу вывода вакансий на экран пользователю."""
     print_vacancies(vacancies_list_from_file)
     captured = capsys.readouterr()
@@ -45,12 +48,10 @@ def test_print_vacancies(capsys, vacancies_list_from_file: list[Vacancy]) -> Non
         == "Python Developer. Ссылка: <https://hh.ru/vacancy/123456>. Зарплата: от 10 до 20. Требуемый опыт: Требования: опыт работы от 3 лет."
     )
 
-def test_print_vacancies_empty(capsys) -> None:
+
+def test_print_vacancies_empty(capsys: Any) -> None:
     """Тест проверяет корректную работу вывода пустого списка с вакансиями на экран пользователю."""
-    empty_list = []
+    empty_list: list = []
     print_vacancies(empty_list)
     captured = capsys.readouterr()
-    assert (
-        captured.out.strip()
-        == ""
-    )
+    assert captured.out.strip() == ""
