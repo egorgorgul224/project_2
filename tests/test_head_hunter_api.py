@@ -79,7 +79,7 @@ def test_get_vacancies(
 
 
 @patch("requests.get")
-def test_get_stock_prices_connection_error(
+def test_get_vacancies_error(
     mocked_get: MagicMock, api_connect_data_before_sort: list[dict], head_hunter_init: HeadHunterApi
 ) -> None:
     """Тест проверяет корректный вызов ошибки HTTPError."""
