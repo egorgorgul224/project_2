@@ -19,6 +19,26 @@ class HeadHunterApi(BaseApi):
         self.per_page = per_page
         self.__vacancies = []
 
+    @property
+    def url(self) -> str:
+        """Геттер возвращает url-адрес."""
+        return self.__url
+
+    @property
+    def headers(self) -> dict:
+        """Геттер возвращает шапку запроса {"User_Agent": }."""
+        return self.__headers
+
+    @property
+    def params(self) -> dict:
+        """Геттер возвращает параметры запроса {"text": , "page", "per_page"}."""
+        return self.__params
+
+    @property
+    def vacancies(self) -> list:
+        """Геттер возвращает список вакансий."""
+        return self.__vacancies
+
     def api_connect(self) -> Any:
         """Метод возвращает json-данные, полученные из приватного метода __api_connect."""
         return self.__api_connect()
@@ -27,7 +47,7 @@ class HeadHunterApi(BaseApi):
         """Приватный метод для подключения по API, возвращает json-данные через get-запрос."""
         response = requests.get(self.__url, headers=self.__headers, params=self.__params)
         if response.status_code != 200:
-            error_message = f"Ошибка: {response.status_code}: {response.text}"
+            error_message = f"Ошибка: {response.status_code}"
             raise requests.exceptions.HTTPError(error_message)
         else:
             return response.json()
@@ -40,8 +60,8 @@ class HeadHunterApi(BaseApi):
             try:
                 data = self.api_connect()
                 vacancies = data.get("items", [])
-            except requests.exceptions.HTTPError:
-                break
+            except:
+                raise requests.exceptions.HTTPError("Ошибка HTTP")
             else:
                 self.__vacancies.extend(vacancies)
                 self.__params["page"] += 1

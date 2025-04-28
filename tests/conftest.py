@@ -1,5 +1,6 @@
 import pytest
 
+from src.head_hunter_api import HeadHunterApi
 from src.vacancy import Vacancy
 
 
@@ -15,3 +16,42 @@ def vacancies_list() -> list[Vacancy]:
 @pytest.fixture
 def vacancies_list_from_file() -> list:
     return [Vacancy("Python Developer", "<https://hh.ru/vacancy/123456>", 10, 20, "Требования: опыт работы от 3 лет")]
+
+
+@pytest.fixture
+def head_hunter_init() -> HeadHunterApi:
+    return HeadHunterApi()
+
+
+@pytest.fixture
+def api_connect_data() -> list[dict]:
+    return [
+        {
+            "name": "Python Developer",
+            "alternate_url": "<https://hh.ru/vacancy/123456>",
+            "salary": {"from": 100000, "to": 150000},
+            "experience": {"name": "Требования: опыт работы от 3 лет"},
+        }
+    ]
+
+
+@pytest.fixture
+def api_connect_data_before_sort() -> dict:
+    return {
+        "items": [
+            {
+                "name": "Python Developer",
+                "alternate_url": "<https://hh.ru/vacancy/123456>",
+                "salary": {"from": 100000, "to": 150000},
+                "experience": {"name": "Требования: опыт работы от 3 лет"},
+            },
+            {
+                "items": {
+                    "name": "Python Developer",
+                    "alternate_url": "<https://hh.ru/vacancy/123458>",
+                    "salary": {"from": 300000, "to": 400000},
+                    "experience": {"name": "Требования: опыт работы от 5 лет"},
+                }
+            },
+        ]
+    }
