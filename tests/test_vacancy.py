@@ -1,8 +1,5 @@
-from typing import Any
-
 import pytest
 
-from src.json_saver import JsonSaver
 from src.vacancy import Vacancy
 
 

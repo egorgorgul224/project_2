@@ -1,7 +1,6 @@
 from unittest.mock import MagicMock, patch
 
 import pytest
-import requests
 
 from src.head_hunter_api import HeadHunterApi
 
@@ -49,7 +48,8 @@ def test_api_connect_status_code_error(
 
 
 @patch("requests.get")
-def test_get_vacancies(mocked_get: MagicMock, api_connect_data_before_sort: list[dict], head_hunter_init: HeadHunterApi
+def test_get_vacancies(
+    mocked_get: MagicMock, api_connect_data_before_sort: list[dict], head_hunter_init: HeadHunterApi
 ) -> None:
     """Тест проверяет корректный вывод списка json-данных с вакансиями по ключу."""
     hh = HeadHunterApi()
