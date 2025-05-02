@@ -70,3 +70,7 @@ def api_connect_data_before_sort() -> dict:
 @pytest.fixture
 def json_saver_init() -> JsonSaver:
     return JsonSaver()
+
+@pytest.fixture
+def vacancy_dict() -> dict:
+    return {"name": "Python Developer"}

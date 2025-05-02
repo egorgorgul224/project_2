@@ -43,25 +43,21 @@ def test_get_data_from_file_found_error(mock_built: MagicMock, json_saver_init: 
     assert result == []
 
 
-def test_add_data_to_file() -> None:
+def test_add_data_to_file(vacancy_dict: dict) -> None:
     """Тест проверяет корректность добавления вакансии в виде словаря в файл."""
-    vacancy_ins = {"name": "Python Developer"}
     json_saver = JsonSaver("test")
-    json_saver.add_data_to_file(vacancy_ins)
+    json_saver.add_data_to_file(vacancy_dict)
     assert json_saver.get_data_from_file() == [{"name": "Python Developer"}]
     f_path = f"{json_saver.file_path}.json"
     if os.path.exists(f_path):
         os.remove(f_path)
 
 
-def test_add_data_to_file_copy() -> None:
+def test_add_data_to_file_copy(vacancy_dict: dict) -> None:
     """Тест проверяет, что в файл не добавляются одинаковые вакансии."""
-    vacancy_ins = {
-        "name": "Python Developer",
-    }
     json_saver = JsonSaver("test")
-    json_saver.add_data_to_file(vacancy_ins)
-    json_saver.add_data_to_file(vacancy_ins)
+    json_saver.add_data_to_file(vacancy_dict)
+    json_saver.add_data_to_file(vacancy_dict)
     assert json_saver.get_data_from_file() == [{"name": "Python Developer"}]
     f_path = f"{json_saver.file_path}.json"
     if os.path.exists(f_path):
@@ -70,24 +66,22 @@ def test_add_data_to_file_copy() -> None:
         os.truncate(f_path, 0)
 
 
-def test_delete_data_from_file() -> None:
+def test_delete_data_from_file(vacancy_dict: dict) -> None:
     """Тест проверяет корректность удаления вакансии из файла."""
-    vacancy_ins = {"name": "Python Developer"}
     json_saver = JsonSaver("test")
-    json_saver.add_data_to_file(vacancy_ins)
-    json_saver.delete_data_from_file(vacancy_ins)
+    json_saver.add_data_to_file(vacancy_dict)
+    json_saver.delete_data_from_file(vacancy_dict)
     assert json_saver.get_data_from_file() == []
     f_path = f"{json_saver.file_path}.json"
     if os.path.exists(f_path):
         os.remove(f_path)
 
 
-def test_delete_data_from_file_value_error(capsys: Any) -> None:
+def test_delete_data_from_file_value_error(capsys: Any, vacancy_dict: dict) -> None:
     """Тест проверяет корректной вывод сообщения, если переданной вакансии нет в файле."""
-    vacancy_ins = {"name": "Python Developer"}
     vacancy_ins_del = {"name": "Python"}
     json_saver = JsonSaver("test")
-    json_saver.add_data_to_file(vacancy_ins)
+    json_saver.add_data_to_file(vacancy_dict)
     json_saver.delete_data_from_file(vacancy_ins_del)
     captured = capsys.readouterr()
     assert captured.out.strip() == "Данные не найдены"
