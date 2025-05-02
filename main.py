@@ -21,12 +21,14 @@ def user_interaction():
     #     "Python Developer", "<https://hh.ru/vacancy/123456>", 100000, 150000, "Требования: опыт работы от 3 лет..."
     # )
     #
+    # new_vacancy_to_dict = Vacancy.transform_to_dict(new_vacancy)
     # json_saver = JsonSaver()
-    # json_saver.add_data_to_file(new_vacancy)
+    # json_saver.add_data_to_file(new_vacancy_to_dict)
     # vacancy_from_file = json_saver.get_data_from_file()
+    # vacancy_from_file_list = Vacancy.cast_to_object_list(vacancy_from_file)
     # json_saver.delete_data_from_file(new_vacancy)
     # print("Список вакансий из файла:")
-    # print_vacancies(vacancy_from_file)
+    # print_vacancies(vacancy_from_file_list)
 
     top_vacancies = get_top_vacancies(vacancies_list, top_n)
     print("Отсортированные вакансии по средней зарплате:")

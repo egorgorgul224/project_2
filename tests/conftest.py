@@ -1,6 +1,11 @@
+import os
+from pathlib import Path
+from typing import Generator
+
 import pytest
 
 from src.head_hunter_api import HeadHunterApi
+from src.json_saver import BASEDIR, JsonSaver
 from src.vacancy import Vacancy
 
 
@@ -16,6 +21,11 @@ def vacancies_list() -> list[Vacancy]:
 @pytest.fixture
 def vacancies_list_from_file() -> list:
     return [Vacancy("Python Developer", "<https://hh.ru/vacancy/123456>", 10, 20, "Требования: опыт работы от 3 лет")]
+
+
+@pytest.fixture
+def vacancy_instance() -> Vacancy:
+    return Vacancy("Python Developer", "1", 10, 50, "Опыт работы от 2 лет")
 
 
 @pytest.fixture
@@ -55,3 +65,8 @@ def api_connect_data_before_sort() -> dict:
             },
         ]
     }
+
+
+@pytest.fixture
+def json_saver_init() -> JsonSaver:
+    return JsonSaver()
