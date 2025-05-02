@@ -122,13 +122,13 @@ class Vacancy:
     def __verify_int_data(check_int_data: int) -> int:
         """Приватный статический метод проверяет валидность целочисленных данных. Метод проверяет, что атрибут является
         экземпляром класса int, не отрицательный."""
+        if check_int_data is None:
+            return 0
         if not isinstance(check_int_data, int):
             raise TypeError(f"Атрибут {check_int_data} не является числом")
         if check_int_data < 0:
             raise ValueError(f"Атрибут {check_int_data} не может быть ниже 0")
-        if check_int_data:
-            return check_int_data
-        return 0
+        return check_int_data
 
     @staticmethod
     def __verify_salary_other(other_data: Any) -> None:

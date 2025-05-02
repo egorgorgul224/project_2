@@ -15,8 +15,8 @@ class HeadHunterApi(BaseApi):
 
         self.__url = "https://api.hh.ru/vacancies"
         self.__headers = {"User-Agent": "HH-User-Agent"}
-        self.__params = {"text": "", "page": 0, "per_page": 100}
         self.per_page = per_page
+        self.__params = {"text": "", "page": 0, "per_page": self.per_page}
         self.__vacancies = []
 
     @property
@@ -52,11 +52,11 @@ class HeadHunterApi(BaseApi):
         else:
             return response.json()
 
-    def get_vacancies(self, keyword: str) -> Any:
+    def get_vacancies(self, keyword: str, max_per_page: int = 1) -> Any:
         """Метод возвращает список словарей с вакансиями по заданному ключевому слову(keyword)."""
         self.__params["text"] = keyword
         self.__vacancies.clear()
-        while self.__params.get("page") < self.per_page:
+        while self.__params.get("page") < max_per_page:
             data = self.api_connect()
             vacancies = data.get("items", [])
             self.__vacancies.extend(vacancies)

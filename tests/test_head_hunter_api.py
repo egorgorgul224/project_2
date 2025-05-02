@@ -10,7 +10,7 @@ def test_category_init(head_hunter_init: HeadHunterApi) -> None:
     """Тест проверяет корректное создания экземпляра класса HeadHunterApi."""
     assert head_hunter_init.url == "https://api.hh.ru/vacancies"
     assert head_hunter_init.headers == {"User-Agent": "HH-User-Agent"}
-    assert head_hunter_init.params == {"text": "", "page": 0, "per_page": 100}
+    assert head_hunter_init.params == {"text": "", "page": 0, "per_page": 50}
     assert head_hunter_init.vacancies == []
 
 
@@ -49,11 +49,10 @@ def test_api_connect_status_code_error(
 
 
 @patch("requests.get")
-def test_get_vacancies(
-    mocked_get: MagicMock, api_connect_data_before_sort: list[dict], head_hunter_init: HeadHunterApi
+def test_get_vacancies(mocked_get: MagicMock, api_connect_data_before_sort: list[dict], head_hunter_init: HeadHunterApi
 ) -> None:
     """Тест проверяет корректный вывод списка json-данных с вакансиями по ключу."""
-    hh = HeadHunterApi(1)
+    hh = HeadHunterApi()
     keyword = "Python"
     mocked_get.return_value.status_code = 200
     mocked_get.return_value.json.return_value = api_connect_data_before_sort
@@ -75,4 +74,4 @@ def test_get_vacancies(
         },
     ]
 
-    mocked_get.assert_called()
+    mocked_get.assert_called_once()

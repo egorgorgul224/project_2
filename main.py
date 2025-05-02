@@ -16,13 +16,9 @@ def user_interaction():
     # Создание экземпляра класса для выгрузки вакансий
     hh_api = HeadHunterApi()
     # Получение вакансий по запросу
-    hh_vacancies = hh_api.get_vacancies(search_query)
+    hh_vacancies = hh_api.get_vacancies(search_query, 20)
     # Формирование списка экземпляров класса вакансий из полученных данных
     vacancies_list = Vacancy.cast_to_object_list(hh_vacancies)
-
-    # Вывод вакансий в консоль
-    print(f"Вакансии с сайта HeadHunter по запросу {search_query}:")
-    print_vacancies(vacancies_list)
 
     # Вывод топ вакансий по средней зарплате
     top_vacancies = get_top_vacancies(vacancies_list, top_n)
