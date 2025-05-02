@@ -25,6 +25,11 @@ def vacancy_instance() -> Vacancy:
 
 
 @pytest.fixture
+def vacancy_instance_other() -> Vacancy:
+    return Vacancy("Java Developer", "2", 100, 120, "Опыт работы от 3 лет")
+
+
+@pytest.fixture
 def head_hunter_init() -> HeadHunterApi:
     return HeadHunterApi()
 

@@ -31,10 +31,10 @@ class Vacancy:
         else:
             salary_info = f"от {self.salary_from} до {self.salary_to}"
 
-        if self.experience is None:
-            experience_info = "не указан"
-        else:
+        if self.experience:
             experience_info = self.experience
+        else:
+            experience_info = "не указан"
 
         vacancy_info = f"{self.name}. Ссылка: {self.url}. Зарплата: {salary_info}. Требуемый опыт: {experience_info}."
         return vacancy_info
@@ -78,7 +78,7 @@ class Vacancy:
         url = vacancy_json_data.get("alternate_url", "")
 
         salary_info = vacancy_json_data.get("salary", {})
-        if salary_info is not None:
+        if salary_info:
             salary_from = salary_info.get("from", 0)
             salary_to = salary_info.get("to", 0)
         else:
@@ -86,7 +86,7 @@ class Vacancy:
             salary_to = 0
 
         experience_info = vacancy_json_data.get("experience", {})
-        if experience_info is not None:
+        if experience_info:
             experience_name = experience_info.get("name", "")
         else:
             experience_name = ""
@@ -101,26 +101,15 @@ class Vacancy:
             vacancies_list.append(cls.process_vacancy(vacancy))
         return vacancies_list
 
-    @classmethod
-    def transform_to_dict(cls, vacancy_data: Any) -> dict:
-        """Классовый метод для преобразования экземпляра класса Vacancy в словарь. Используется при добавлении
+    def transform_to_dict(self) -> dict:
+        """Статический метод для преобразования экземпляра класса Vacancy в словарь. Используется при добавлении
         экземпляра класса в файл."""
-        if isinstance(vacancy_data, Vacancy):
-            name = vacancy_data.name
-            url = vacancy_data.url
-            salary_from = vacancy_data.salary_from
-            salary_to = vacancy_data.salary_to
-            experience_name = vacancy_data.experience
-            vacancy_result = {
-                "name": name,
-                "alternate_url": url,
-                "salary": {"from": salary_from, "to": salary_to},
-                "experience": {"name": experience_name},
-            }
-
-            return vacancy_result
-        else:
-            raise TypeError
+        return {
+            "name": self.name,
+            "alternate_url": self.url,
+            "salary": {"from": self.salary_from, "to": self.salary_to},
+            "experience": {"name": self.experience},
+        }
 
     @staticmethod
     def __verify_str_data(check_str_data: str) -> str:
@@ -133,13 +122,13 @@ class Vacancy:
     def __verify_int_data(check_int_data: int) -> int:
         """Приватный статический метод проверяет валидность целочисленных данных. Метод проверяет, что атрибут является
         экземпляром класса int, не отрицательный."""
-        if check_int_data is None:
-            return 0
         if not isinstance(check_int_data, int):
             raise TypeError(f"Атрибут {check_int_data} не является числом")
         if check_int_data < 0:
             raise ValueError(f"Атрибут {check_int_data} не может быть ниже 0")
-        return check_int_data
+        if check_int_data:
+            return check_int_data
+        return 0
 
     @staticmethod
     def __verify_salary_other(other_data: Any) -> None:
