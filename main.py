@@ -38,6 +38,7 @@ def user_interaction():
     json_saver.add_data_to_file(vacancy_to_dict)
     # Получение данных из файла
     vacancy_from_file = json_saver.get_data_from_file()
+    # Удаление данных из файла
     json_saver.delete_data_from_file(vacancy_to_dict)
     # Преобразование json-данных в экземпляр класса Vacancy
     vacancy_from_file_list = Vacancy.cast_to_object_list(vacancy_from_file)
