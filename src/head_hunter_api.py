@@ -57,13 +57,9 @@ class HeadHunterApi(BaseApi):
         self.__params["text"] = keyword
         self.__vacancies.clear()
         while self.__params.get("page") < self.per_page:
-            try:
-                data = self.api_connect()
-                vacancies = data.get("items", [])
-            except:
-                raise requests.exceptions.HTTPError("Ошибка HTTP")
-            else:
-                self.__vacancies.extend(vacancies)
-                self.__params["page"] += 1
+            data = self.api_connect()
+            vacancies = data.get("items", [])
+            self.__vacancies.extend(vacancies)
+            self.__params["page"] += 1
 
         return self.__vacancies

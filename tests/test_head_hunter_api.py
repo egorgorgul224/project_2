@@ -76,19 +76,3 @@ def test_get_vacancies(
     ]
 
     mocked_get.assert_called()
-
-
-@patch("requests.get")
-def test_get_vacancies_error(
-    mocked_get: MagicMock, api_connect_data_before_sort: list[dict], head_hunter_init: HeadHunterApi
-) -> None:
-    """Тест проверяет корректный вызов ошибки HTTPError."""
-    hh = HeadHunterApi(1)
-    keyword = "Python"
-    mocked_get.side_effect = requests.exceptions.HTTPError
-
-    with pytest.raises(Exception) as exc_message:
-        hh.get_vacancies(keyword)
-
-    assert "Ошибка HTTP" in str(exc_message)
-    mocked_get.assert_called()
