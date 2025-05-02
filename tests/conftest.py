@@ -1,11 +1,7 @@
-import os
-from pathlib import Path
-from typing import Generator
-
 import pytest
 
 from src.head_hunter_api import HeadHunterApi
-from src.json_saver import BASEDIR, JsonSaver
+from src.json_saver import JsonSaver
 from src.vacancy import Vacancy
 
 
@@ -70,6 +66,7 @@ def api_connect_data_before_sort() -> dict:
 @pytest.fixture
 def json_saver_init() -> JsonSaver:
     return JsonSaver()
+
 
 @pytest.fixture
 def vacancy_dict() -> dict:

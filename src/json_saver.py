@@ -3,7 +3,6 @@ from pathlib import Path
 from typing import Any
 
 from src.base_files import BaseFiles
-from src.vacancy import Vacancy
 
 BASEDIR = Path(__file__).resolve().parent.parent
 

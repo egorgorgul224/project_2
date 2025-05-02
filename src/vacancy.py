@@ -122,7 +122,6 @@ class Vacancy:
         else:
             raise TypeError
 
-
     @staticmethod
     def __verify_str_data(check_str_data: str) -> str:
         """Приватный статический метод проверяет валидность строковых данных."""
